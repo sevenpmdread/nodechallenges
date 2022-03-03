@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {currenttime, unixutcdate} = require("../controllers/dates")
-router.route("/").post(currenttime)
-router.route("/:date").post(unixutcdate)
+router.route("/").get(currenttime)
+router.route("/:date").get(unixutcdate)
 
 module.exports = router

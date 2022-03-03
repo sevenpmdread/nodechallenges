@@ -3,7 +3,7 @@ var app = express();
 const date = require("./routes/date")
 
 
-app.use("/",date)
+app.use("/api/v1/",date)
 
 
 app.use("/",(req,res)=>{

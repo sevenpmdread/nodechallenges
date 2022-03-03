@@ -16,20 +16,38 @@ const unixutcdate = async(req,res) => {
   const datestring = req.params.date
   if(!datestring)
   res.sendStatus(502).send({msg:"invalid request"})
-  try{
-  const result = {
-    unix:new Date(datestring).getTime()/1000,
-    utc: new Date(datestring).toUTCString()
-  }
-  if(result.utc !=="Invalid Date" && isNaN(result.unix))
-  res.send(result)
-  else
-  return res.send({msg:"invalid request"})
-
-}
-  catch(error)
+  // if isNan is false then unix is passed
+  if(!isNaN(datestring))
   {
-   return  res.sendStatus(502).send({msg:error})
+    try{
+      const result = {
+        unix:datestring,
+        utc: new Date(datestring*1).toUTCString()
+      }
+      if(result.utc !=="Invalid Date")
+      res.send(result)
+      else
+      return res.send({msg:"invalid request"})
+    }
+    catch(error)
+    {
+     return  res.sendStatus(502).send({msg:error})
+    }
+  }
+  else
+  {
+    try {
+      const result = {
+        unix:new Date(datestring).getTime()/1000,
+        utc: new Date(datestring).toUTCString()
+      }
+      if(result.utc !=="Invalid Date")
+      res.send(result)
+      else
+      return res.send({msg:"invalid request"})
+    } catch (error) {
+
+    }
   }
 }
 
